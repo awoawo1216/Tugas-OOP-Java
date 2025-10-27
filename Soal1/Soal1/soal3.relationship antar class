@@ -1,0 +1,117 @@
+/*
+    =======================================================
+    SOAL 3 - RELATIONSHIP ANTAR CLASS 
+    =======================================================
+
+    🤝 PENJELASAN TEORI
+    -------------------------------------------------------
+    Dalam pemrograman berorientasi objek (OOP),
+    relationship (hubungan antar class) menjelaskan bagaimana
+    satu class dapat berhubungan dengan class lainnya.
+
+    Ada beberapa jenis hubungan antar class, seperti:
+    - Association
+    - Aggregation
+    - Composition
+    - Inheritance
+
+    Dalam soal ini, kita menggunakan konsep **"has-a relationship"**,
+    yaitu hubungan di mana satu objek memiliki (memuat) objek lain
+    sebagai bagian dari dirinya.  
+    Contohnya:
+    - Seorang mahasiswa memiliki (has-a) daftar mata kuliah.
+    - Artinya, class `Student` memiliki objek `CourseEncapsulated`.
+
+    -------------------------------------------------------
+    💡 CONTOH DALAM PROGRAM INI
+    -------------------------------------------------------
+    - Class `CourseEncapsulated` merepresentasikan data mata kuliah.
+    - Class `Student` menyimpan data mahasiswa dan daftar mata kuliah
+      yang diambil oleh mahasiswa tersebut.
+
+    Hubungan:  
+    `Student` HAS-A `CourseEncapsulated`
+
+    -------------------------------------------------------
+    🧠 MANFAAT RELATIONSHIP ANTAR CLASS
+    -------------------------------------------------------
+    - Membuat program lebih modular (terpisah dan mudah dikembangkan)
+    - Mempermudah penggunaan kembali class yang sudah ada (reusable)
+    - Mencerminkan hubungan dunia nyata dalam bentuk kode
+
+    -------------------------------------------------------
+    📘 KESIMPULAN
+    -------------------------------------------------------
+    Relationship antar class memungkinkan objek saling bekerja sama.
+    Dalam contoh ini, `Student` memiliki daftar `CourseEncapsulated`
+    untuk menunjukkan mata kuliah yang diambil mahasiswa tersebut.
+*/
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Student {
+    // ====== Atribut class Student ======
+    private String name;
+    private String studentId;
+    private List<CourseEncapsulated> courses; // HAS-A relationship
+
+    // ====== Constructor ======
+    public Student(String name, String studentId) {
+        this.name = name;
+        this.studentId = studentId;
+        this.courses = new ArrayList<>();
+    }
+
+    // ====== Method untuk menambah course ke daftar mahasiswa ======
+    public void addCourse(CourseEncapsulated c) {
+        courses.add(c);
+    }
+
+    // ====== Method untuk menampilkan semua course yang diambil ======
+    public void listCourses() {
+        System.out.println("Mahasiswa: " + name + " (" + studentId + ")");
+        System.out.println("Daftar Mata Kuliah:");
+        for (CourseEncapsulated c : courses) {
+            c.displayInfo();
+            System.out.println("---------------------");
+        }
+    }
+
+    // ====== Method utama ======
+    public static void main(String[] args) {
+        // Membuat objek CourseEncapsulated (mata kuliah)
+        CourseEncapsulated oop = new CourseEncapsulated("OOP", 3, "Ibu Sinta");
+        CourseEncapsulated db = new CourseEncapsulated("Database", 2, "Pak Arif");
+
+        // Membuat objek Student
+        Student s = new Student("Andi", "S12345");
+
+        // Menambahkan course ke daftar mahasiswa
+        s.addCourse(oop);
+        s.addCourse(db);
+
+        // Menampilkan daftar mata kuliah yang diambil
+        s.listCourses();
+
+        /*
+            Output yang dihasilkan:
+            Mahasiswa: Andi (S12345)
+            Daftar Mata Kuliah:
+            Course Name: OOP
+            Credit: 3
+            Instructor: Ibu Sinta
+            ---------------------
+            Course Name: Database
+            Credit: 2
+            Instructor: Pak Arif
+        */
+
+        /*
+            Kesimpulan:
+            - Class Student memiliki daftar CourseEncapsulated.
+            - Ini adalah contoh hubungan HAS-A (satu class memiliki class lain).
+            - Relationship ini memudahkan pengelolaan data antar objek.
+        */
+    }
+}
