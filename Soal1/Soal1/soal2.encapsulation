@@ -1,0 +1,114 @@
+/*
+    =======================================================
+    SOAL 2 - ENCAPSULATION 
+    =======================================================
+
+    🔒 PENJELASAN TEORI
+    -------------------------------------------------------
+    Encapsulation adalah salah satu prinsip dasar dalam OOP
+    (Object-Oriented Programming) yang berarti *pembungkusan data*.
+    Tujuannya adalah untuk melindungi data (atribut) agar tidak bisa
+    diakses atau diubah secara langsung dari luar class.
+
+    Dengan Encapsulation, kita menyembunyikan detail internal class
+    menggunakan modifier `private`, dan menyediakan method khusus
+    untuk mengakses atau mengubah data tersebut,
+    yaitu: 
+    - `getter` → untuk membaca data
+    - `setter` → untuk mengubah data (dengan validasi bila perlu)
+
+    -------------------------------------------------------
+    💡 CONTOH DALAM PROGRAM INI
+    -------------------------------------------------------
+    Class: CourseEncapsulated
+    - Atribut: courseName, credit, instructorName
+      (dideklarasikan sebagai `private` agar tidak bisa diakses langsung)
+    - Method: getCredit(), setCredit(), displayInfo()
+
+    Object:
+    CourseEncapsulated c = new CourseEncapsulated("Jaringan Komputer", 3, "Pak Budi");
+
+    -------------------------------------------------------
+    🧠 KEUNTUNGAN ENCAPSULATION
+    -------------------------------------------------------
+    - Data menjadi lebih aman karena tidak bisa diubah sembarangan.
+    - Memudahkan pengelolaan validasi data (contoh: kredit tidak boleh negatif).
+    - Struktur program menjadi lebih rapi dan terkontrol.
+
+    -------------------------------------------------------
+    📘 KESIMPULAN
+    -------------------------------------------------------
+    Encapsulation = cara membungkus atribut class agar tidak bisa
+    diakses langsung dari luar class, tetapi hanya melalui
+    method khusus (getter dan setter).
+
+    Contoh sederhana:
+    private int credit;     → tidak bisa diakses langsung
+    public void setCredit() → digunakan untuk mengatur nilai dengan aman
+*/
+
+public class CourseEncapsulated {
+    // ====== Atribut disembunyikan menggunakan modifier 'private' ======
+    private String courseName;
+    private int credit;
+    private String instructorName;
+
+    // ====== Constructor ======
+    public CourseEncapsulated(String courseName, int credit, String instructorName) {
+        this.courseName = courseName;
+        setCredit(credit); // validasi nilai kredit dilakukan di sini
+        this.instructorName = instructorName;
+    }
+
+    // ====== Setter dan Getter ======
+    // Setter: mengatur nilai atribut dengan validasi
+    public void setCredit(int credit) {
+        if (credit < 0) {
+            throw new IllegalArgumentException("Credit tidak boleh negatif!");
+        }
+        this.credit = credit;
+    }
+
+    // Getter: mengembalikan nilai atribut ke luar class
+    public int getCredit() {
+        return credit;
+    }
+
+    // ====== Method tambahan ======
+    public void displayInfo() {
+        System.out.println("Course Name: " + courseName);
+        System.out.println("Credit: " + credit);
+        System.out.println("Instructor: " + instructorName);
+    }
+
+    // ====== Method utama ======
+    public static void main(String[] args) {
+        // Membuat object dari class CourseEncapsulated
+        CourseEncapsulated c = new CourseEncapsulated("Jaringan Komputer", 3, "Pak Budi");
+
+        // Menampilkan informasi mata kuliah
+        c.displayInfo();
+
+        // Mengubah nilai kredit dengan method setter
+        c.setCredit(4);
+        System.out.println("\nSetelah diubah:");
+        System.out.println("Credit baru: " + c.getCredit());
+
+        /*
+            Output yang dihasilkan:
+            Course Name: Jaringan Komputer
+            Credit: 3
+            Instructor: Pak Budi
+
+            Setelah diubah:
+            Credit baru: 4
+        */
+
+        /*
+            Kesimpulan:
+            - Atribut disembunyikan menggunakan 'private'.
+            - Data hanya bisa diubah lewat setter dan dibaca lewat getter.
+            - Inilah contoh penerapan Encapsulation dalam OOP.
+        */
+    }
+}
