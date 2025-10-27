@@ -1,0 +1,37 @@
+/*
+    =======================================================
+    SOAL 4 - INHERITANCE & POLYMORPHISM
+    =======================================================
+
+    📘 Penjelasan Singkat:
+    Inheritance = pewarisan sifat antar class (superclass → subclass)
+    Polymorphism = satu method bisa memiliki banyak bentuk,
+                   tergantung pada objek yang memanggilnya.
+
+    Contoh:
+    - Superclass: Person
+    - Subclass: Student, Lecturer
+    - Method: introduce() dioverride di masing-masing subclass
+    - Demonstrasi polymorphism: Person[] berisi objek berbeda
+*/
+
+// ===== Superclass =====
+class Person {
+    protected String name;
+
+    public Person(String name) {
+        this.name = name;
+    }
+
+    public void introduce() {
+        System.out.println("Halo, saya adalah seseorang bernama " + name + ".");
+    }
+}
+
+// ===== Subclass: Student =====
+class Student extends Person {
+    private String studentId;
+
+    public Student(String name, String studentId) {
+        super(name);
+        this.studentId = studentId
