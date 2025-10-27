@@ -1,0 +1,127 @@
+/*
+    =======================================================
+    SOAL 4 - INHERITANCE & POLYMORPHISM
+    =======================================================
+
+    🧬 PENJELASAN TEORI
+    -------------------------------------------------------
+    1️⃣ INHERITANCE (PEWARISAN)
+    Inheritance adalah konsep dalam OOP di mana satu class (child/subclass)
+    dapat mewarisi atribut dan method dari class lain (parent/superclass).
+    Hal ini membuat kode lebih efisien, mudah diperluas, dan tidak perlu
+    menulis ulang atribut atau method yang sama.
+
+    Dalam contoh ini:
+    - Class `Person` sebagai superclass.
+    - Class `Student` dan `Lecturer` sebagai subclass yang mewarisi dari `Person`.
+
+    2️⃣ POLYMORPHISM (BANYAK BENTUK)
+    Polymorphism memungkinkan satu referensi (misalnya `Person`) 
+    untuk menunjuk ke berbagai bentuk objek (`Student`, `Lecturer`), 
+    tetapi tetap dapat memanggil method yang berbeda tergantung pada objek sebenarnya.
+
+    Dalam contoh ini:
+    - Method `introduce()` dideklarasikan di class `Person`,
+      dan **dioverride** di subclass `Student` dan `Lecturer`.
+    - Ketika kita menyimpan berbagai objek dalam array `Person[]`,
+      Java akan otomatis memanggil method yang sesuai (polymorphism in action).
+
+    -------------------------------------------------------
+    💡 CONTOH DALAM PROGRAM INI
+    -------------------------------------------------------
+    - Superclass: Person
+    - Subclass: Student, Lecturer
+    - Method polymorphism: introduce()
+
+    -------------------------------------------------------
+    🧠 MANFAAT INHERITANCE & POLYMORPHISM
+    -------------------------------------------------------
+    - Menghemat kode (reusability)
+    - Mempermudah pengembangan program besar
+    - Memungkinkan pemanggilan method dengan cara yang fleksibel
+
+    -------------------------------------------------------
+    📘 KESIMPULAN
+    -------------------------------------------------------
+    Inheritance = hubungan “is-a” antara class induk dan turunan.  
+    Polymorphism = kemampuan method yang sama untuk berperilaku berbeda
+    tergantung objek yang memanggilnya (Student vs Lecturer).
+*/
+
+// ===== Superclass =====
+class Person {
+    protected String name;
+
+    public Person(String name) {
+        this.name = name;
+    }
+
+    // Method akan dioverride oleh subclass
+    public void introduce() {
+        System.out.println("Halo, saya adalah seseorang bernama " + name + ".");
+    }
+}
+
+// ===== Subclass: Student =====
+class Student extends Person {
+    private String studentId;
+
+    public Student(String name, String studentId) {
+        super(name);
+        this.studentId = studentId;
+    }
+
+    // Override method introduce()
+    @Override
+    public void introduce() {
+        System.out.println("Halo, saya mahasiswa bernama " + name + 
+                           " dengan NIM " + studentId + ".");
+    }
+}
+
+// ===== Subclass: Lecturer =====
+class Lecturer extends Person {
+    private String lecturerId;
+
+    public Lecturer(String name, String lecturerId) {
+        super(name);
+        this.lecturerId = lecturerId;
+    }
+
+    // Override method introduce()
+    @Override
+    public void introduce() {
+        System.out.println("Halo, saya dosen bernama " + name + 
+                           " dengan ID Dosen " + lecturerId + ".");
+    }
+}
+
+// ===== Class utama untuk menjalankan program =====
+public class InheritancePolymorphism {
+    public static void main(String[] args) {
+        // Membuat array Person yang berisi objek dari berbagai subclass
+        Person[] people = new Person[3];
+        people[0] = new Person("Andi");
+        people[1] = new Student("Budi", "S12345");
+        people[2] = new Lecturer("Citra", "L9876");
+
+        // Demonstrasi polymorphism
+        System.out.println("=== DEMONSTRASI POLYMORPHISM DENGAN Person[] ===");
+        for (Person p : people) {
+            p.introduce(); // Java otomatis memanggil versi method sesuai objek aslinya
+        }
+
+        /*
+            Output yang dihasilkan:
+            === DEMONSTRASI POLYMORPHISM DENGAN Person[] ===
+            Halo, saya adalah seseorang bernama Andi.
+            Halo, saya mahasiswa bernama Budi dengan NIM S12345.
+            Halo, saya dosen bernama Citra dengan ID Dosen L9876.
+
+            Kesimpulan:
+            - Semua objek disimpan dalam satu array bertipe Person[].
+            - Namun, masing-masing objek memanggil method introduce() yang berbeda.
+            - Inilah contoh nyata polymorphism dalam OOP.
+        */
+    }
+}
