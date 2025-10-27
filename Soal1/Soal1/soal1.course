@@ -1,0 +1,53 @@
+/*
+    ==============================
+    SOAL 1 - CLASS DAN OBJECT
+    ==============================
+
+    Penjelasan:
+    Class adalah cetakan (blueprint) yang digunakan untuk membuat object.
+    Di dalam class terdapat atribut (variabel) dan method (fungsi)
+    yang menggambarkan karakteristik dari suatu objek.
+
+    Object adalah hasil nyata (instance) dari class tersebut.
+    Setiap object memiliki nilai spesifik sesuai dengan atribut di dalam class.
+
+    Contoh:
+    Class: Course
+    Object: c1 = new Course("Pemrograman Java", 3, "Ibu Ani");
+*/
+
+public class Course {
+    // Atribut dari class Course
+    public String courseName;
+    public int credit;
+    public String instructorName;
+
+    // Constructor: digunakan untuk memberi nilai awal pada object
+    public Course(String courseName, int credit, String instructorName) {
+        this.courseName = courseName;
+        this.credit = credit;
+        this.instructorName = instructorName;
+    }
+
+    // Method untuk menampilkan informasi mata kuliah
+    public void displayInfo() {
+        System.out.println("Course Name: " + courseName);
+        System.out.println("Credit: " + credit);
+        System.out.println("Instructor: " + instructorName);
+    }
+
+    // Method utama (program dijalankan mulai dari sini)
+    public static void main(String[] args) {
+        // Membuat object baru dari class Course
+        Course c1 = new Course("Pemrograman Java", 3, "Ibu Ani");
+
+        // Memanggil method untuk menampilkan data object
+        c1.displayInfo();
+
+        /*
+            Kesimpulan:
+            - Class = cetakan (Course)
+            - Object = hasil nyata dari cetakan (c1)
+        */
+    }
+}
