@@ -1,0 +1,87 @@
+/*
+    =======================================================
+    SOAL 5 - ABSTRACT CLASS & INTERFACE
+    =======================================================
+
+    📘 Penjelasan Singkat:
+    - Abstract class digunakan untuk mendefinisikan struktur umum
+      dengan sebagian implementasi yang bisa diwariskan.
+    - Interface digunakan untuk mendefinisikan perilaku (kontrak)
+      yang wajib diimplementasikan oleh class lain.
+
+    Contoh:
+    Abstract class: Assessment → punya method abstract calculateFinalScore()
+    Interface: Gradable → punya method getGrade()
+    Subclass: Exam dan Assignment → implementasi method dari keduanya.
+*/
+
+// ===== Interface =====
+interface Gradable {
+    String getGrade();
+}
+
+// ===== Abstract Class =====
+abstract class Assessment implements Gradable {
+    protected String title;
+    protected double score;
+
+    public Assessment(String title, double score) {
+        this.title = title;
+        this.score = score;
+    }
+
+    // Abstract method
+    public abstract double calculateFinalScore();
+}
+
+// ===== Subclass Exam =====
+class Exam extends Assessment {
+    private double weight;
+
+    public Exam(String title, double score, double weight) {
+        super(title, score);
+        this.weight = weight;
+    }
+
+    @Override
+    public double calculateFinalScore() {
+        return score * weight;
+    }
+
+    @Override
+    public String getGrade() {
+        return (calculateFinalScore() >= 70) ? "Lulus" : "Tidak Lulus";
+    }
+}
+
+// ===== Subclass Assignment =====
+class Assignment extends Assessment {
+    private int submissionCount;
+
+    public Assignment(String title, double score, int submissionCount) {
+        super(title, score);
+        this.submissionCount = submissionCount;
+    }
+
+    @Override
+    public double calculateFinalScore() {
+        return score + (submissionCount * 2);
+    }
+
+    @Override
+    public String getGrade() {
+        return (calculateFinalScore() >= 60) ? "Baik" : "Perlu Perbaikan";
+    }
+}
+
+// ===== Class utama =====
+public class Soal5_AbstractInterface {
+    public static void main(String[] args) {
+        Assessment exam = new Exam("UAS Pemrograman", 80, 0.8);
+        Assessment assignment = new Assignment("Tugas Akhir", 55, 3);
+
+        System.out.println("=== HASIL PENILAIAN ===");
+        System.out.println(exam.title + " → Nilai Akirr: " + exam.calculateFinalScore() + " | Grade: " + exam.getGrade());
+        System.out.println(assignment.title + " → Nilai Akhir: " + assignment.calculateFinalScore() + " | Grade: " + assignment.getGrade());
+    }
+}
